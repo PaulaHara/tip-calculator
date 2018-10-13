@@ -27,7 +27,7 @@ class ViewController: UIViewController {
         
         let tip = billAmount * (tipPercentage/100)
         
-        tipAmount.text = "Tip amount: $\(tip)"
+        tipAmount.text = "Tip amount: $\(tip.rounded(toPlaces: 3))"
     }
     
     private func convertStringToFloat( textField: UITextField) -> Float {
@@ -39,5 +39,14 @@ class ViewController: UIViewController {
         return 0
     }
 
+}
+
+extension FloatingPoint {
+    
+    public func rounded(toPlaces places: Int) -> Self {
+        guard places >= 0 else { return self }
+        let divisor = Self(Int(pow(10.0, Float(places))))
+        return (self * divisor).rounded() / divisor
+    }
 }
 
